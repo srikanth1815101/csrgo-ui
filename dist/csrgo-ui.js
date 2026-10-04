@@ -1,11 +1,64 @@
 /**
  * CSRGO UI Web Components
- * This file defines <csrgo-header> and <csrgo-footer> for seamless injection into any project.
+ * Zero-Config Auto-Loader
  */
+
+(function initCsrgoUI() {
+    // 1. Load Google Fonts
+    if (!document.querySelector('link[href*="fonts.googleapis.com/css2?family=Inter"]')) {
+        const font1 = document.createElement('link'); font1.rel = 'preconnect'; font1.href = 'https://fonts.googleapis.com';
+        const font2 = document.createElement('link'); font2.rel = 'preconnect'; font2.href = 'https://fonts.gstatic.com'; font2.crossOrigin = '';
+        const font3 = document.createElement('link'); font3.rel = 'stylesheet'; font3.href = 'https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap';
+        document.head.appendChild(font1);
+        document.head.appendChild(font2);
+        document.head.appendChild(font3);
+    }
+
+    // 2. Load Tailwind CSS & Configure Dark Mode (Must happen before Tailwind loads)
+    window.tailwind = window.tailwind || {};
+    window.tailwind.config = {
+        darkMode: 'class',
+        theme: {
+            extend: {
+                colors: { primary: '#4A90E2', secondary: '#9B59B6', accent: '#FF6B35' },
+                fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+                animation: { 'fade-in-up': 'fadeInUp 1s cubic-bezier(0.25, 1, 0.5, 1) forwards' }
+            }
+        }
+    };
+
+    if (!document.querySelector('script[src*="tailwindcss.com"]')) {
+        const twScript = document.createElement('script');
+        twScript.src = "https://cdn.tailwindcss.com";
+        document.head.appendChild(twScript);
+    }
+
+    // 3. Load Lucide Icons
+    if (!document.querySelector('script[src*="lucide"]')) {
+        const lucideScript = document.createElement('script');
+        lucideScript.src = "https://unpkg.com/lucide@latest";
+        document.head.appendChild(lucideScript);
+    }
+
+    // 4. Load Global Brand CSS dynamically relative to this script's path
+    const currentScript = document.currentScript || document.querySelector('script[src*="csrgo-ui.js"]');
+    const basePath = currentScript ? currentScript.src.substring(0, currentScript.src.lastIndexOf('/')) : '.';
+    
+    if (!document.querySelector('link[href*="csrgo-ui.css"]')) {
+        const cssLink = document.createElement('link');
+        cssLink.rel = 'stylesheet';
+        cssLink.href = `${basePath}/csrgo-ui.css`;
+        document.head.appendChild(cssLink);
+    }
+})();
 
 class CsrgoHeader extends HTMLElement {
     connectedCallback() {
-        const logoUrl = this.getAttribute('logo-url') || 'dist/logo.png';
+        // Resolve logo URL dynamically based on script path too!
+        const currentScript = document.currentScript || document.querySelector('script[src*="csrgo-ui.js"]');
+        const basePath = currentScript ? currentScript.src.substring(0, currentScript.src.lastIndexOf('/')) : '.';
+        const logoUrl = this.getAttribute('logo-url') || `${basePath}/logo.png`;
+        
         const brandName = this.getAttribute('brand-name') || 'CSRGO';
         const currentPath = window.location.pathname;
 
@@ -119,15 +172,19 @@ class CsrgoHeader extends HTMLElement {
             themeIcon.setAttribute('data-lucide', currentTheme === 'dark' ? 'sun' : 'moon');
         }
 
-        if (window.lucide) lucide.createIcons();
+        // Wait a small moment to ensure lucide script is loaded by the auto-loader before rendering icons
+        setTimeout(() => {
+            if (window.lucide) lucide.createIcons();
+        }, 100);
     }
 }
 customElements.define('csrgo-header', CsrgoHeader);
 
-
 class CsrgoFooter extends HTMLElement {
     connectedCallback() {
-        const logoUrl = this.getAttribute('logo-url') || 'dist/logo.png';
+        const currentScript = document.currentScript || document.querySelector('script[src*="csrgo-ui.js"]');
+        const basePath = currentScript ? currentScript.src.substring(0, currentScript.src.lastIndexOf('/')) : '.';
+        const logoUrl = this.getAttribute('logo-url') || `${basePath}/logo.png`;
         const brandName = this.getAttribute('brand-name') || 'CSRGO';
         const year = new Date().getFullYear();
 
@@ -198,7 +255,10 @@ class CsrgoFooter extends HTMLElement {
                 window.scrollTo({ top: 0, behavior: 'smooth' });
             });
         }
-        if (window.lucide) lucide.createIcons();
+        
+        setTimeout(() => {
+            if (window.lucide) lucide.createIcons();
+        }, 100);
     }
 }
 customElements.define('csrgo-footer', CsrgoFooter);
