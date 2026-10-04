@@ -101,7 +101,7 @@ class CsrgoHeader extends HTMLElement {
                             <div class="flex items-center space-x-2 sm:space-x-3">
                                 <a href="/" class="flex items-center">
                                     <div class="relative flex items-center justify-center p-1">
-                                        <img src="${logoUrl}" alt="${brandName}" class="w-6 h-6 sm:w-8 sm:h-8 relative z-10" />
+                                        <img src="${logoUrl}" alt="${brandName}" class="w-6 h-6 sm:w-8 sm:h-8 relative z-10" style="width: 32px; height: 32px; object-fit: contain;" />
                                     </div>
                                     <div class="h-4 sm:h-6 w-px bg-gray-200 dark:bg-gray-700 mx-1.5 sm:mx-2 self-center"></div>
                                     <div class="h-6 sm:h-8 flex items-center">
@@ -193,7 +193,7 @@ class CsrgoFooter extends HTMLElement {
                 <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 grid grid-cols-1 md:grid-cols-5 gap-12 text-center md:text-left">
                     <div class="md:col-span-2 flex flex-col gap-4">
                         <a href="/" class="flex items-center justify-center md:justify-start gap-1 group">
-                            <img src="${logoUrl}" alt="${brandName}" class="h-10 w-10 object-contain transition-transform duration-200 group-hover:scale-105 leading-none pb-1 filter brightness-0 invert" style="max-width: 44px; min-width: 36px;" />
+                            <img src="${logoUrl}" alt="${brandName}" class="h-10 w-10 object-contain transition-transform duration-200 group-hover:scale-105 leading-none pb-1 filter brightness-0 invert" style="width: 40px; height: 40px; max-width: 44px; min-width: 36px; object-fit: contain;" />
                             <span class="mx-1 h-7 border-l border-gray-400 dark:border-gray-300 inline-block relative -mt-1"></span>
                             <span class="text-4xl font-extrabold text-white select-none leading-none pb-1">${brandName}</span>
                         </a>
