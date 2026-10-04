@@ -1,0 +1,72 @@
+/* Base styling and fonts */
+body {
+    margin: 0;
+    font-family: 'Inter', system-ui, -apple-system, sans-serif;
+    transition: background-color 0.3s ease, color 0.3s ease, opacity 0.4s cubic-bezier(0.25, 1, 0.5, 1);
+    opacity: 1;
+}
+
+body.page-transitioning {
+    opacity: 0;
+    pointer-events: none;
+}
+
+html { scroll-behavior: smooth; }
+
+/* Brand Colors and Gradients */
+:root {
+    --gradient-primary: linear-gradient(135deg, #FF6B35 0%, #4A90E2 50%, #9B59B6 100%);
+    --gradient-secondary: linear-gradient(135deg, #4A90E2 0%, #9B59B6 100%);
+    --gradient-accent: linear-gradient(90deg, #FF6B35 0%, #4A90E2 100%);
+}
+
+/* Dark Mode Transitions */
+.dark { color-scheme: dark; }
+
+html[data-theme="dark"] body {
+    background-color: #0A0E27;
+    color: #E5E7EB;
+}
+
+html[data-theme="light"] body {
+    background-color: #F8F9FA;
+    color: #1F2937;
+}
+
+/* Utilities */
+.glass-effect {
+    backdrop-filter: blur(12px);
+    -webkit-backdrop-filter: blur(12px);
+}
+
+.gradient-text {
+    background: var(--gradient-primary);
+    -webkit-background-clip: text;
+    -webkit-text-fill-color: transparent;
+    background-clip: text;
+}
+
+.gradient-bg { background: var(--gradient-primary); }
+
+/* Global Scrollbar */
+::-webkit-scrollbar { height: 8px; width: 8px; }
+::-webkit-scrollbar-track { background: rgba(0, 0, 0, 0.05); border-radius: 4px; }
+::-webkit-scrollbar-thumb { background: rgba(0, 0, 0, 0.2); border-radius: 4px; }
+::-webkit-scrollbar-thumb:hover { background: rgba(0, 0, 0, 0.3); }
+
+html[data-theme="dark"] ::-webkit-scrollbar-track { background: rgba(255, 255, 255, 0.05); }
+html[data-theme="dark"] ::-webkit-scrollbar-thumb { background: rgba(255, 255, 255, 0.2); }
+html[data-theme="dark"] ::-webkit-scrollbar-thumb:hover { background: rgba(255, 255, 255, 0.3); }
+
+/* Animations */
+@keyframes fadeIn {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in { animation: fadeIn 0.4s ease-out forwards; }
+
+@keyframes fadeInUp {
+    from { opacity: 0; transform: translateY(20px); }
+    to { opacity: 1; transform: translateY(0); }
+}
+.animate-fade-in-up { animation: fadeInUp 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }

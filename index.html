@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CSRGO UI Web Components</title>
+    
+    <!-- 1. Google Fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&display=swap" rel="stylesheet">
+
+    <!-- 2. Tailwind CSS Configuration -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script>
+        tailwind.config = {
+            darkMode: 'class',
+            theme: {
+                extend: {
+                    colors: { primary: '#4A90E2', secondary: '#9B59B6', accent: '#FF6B35' },
+                    fontFamily: { sans: ['Inter', 'system-ui', 'sans-serif'] },
+                    animation: { 'fade-in-up': 'fadeInUp 1s cubic-bezier(0.25, 1, 0.5, 1) forwards' }
+                }
+            }
+        }
+    </script>
+
+    <!-- 3. Lucide Icons -->
+    <script src="https://unpkg.com/lucide@latest"></script>
+
+    <!-- ============================================== -->
+    <!-- 4. IMPORT THE CSRGO UI SCRIPT AND CSS          -->
+    <!-- ============================================== -->
+    <link rel="stylesheet" href="./dist/csrgo-ui.css">
+    <script src="./dist/csrgo-ui.js"></script>
+
+</head>
+<body class="bg-gray-50 dark:bg-gray-900 transition-colors duration-300">
+
+    <!-- Drop the header into the page -->
+    <csrgo-header brand-name="CSRGO Web UI" logo-url="./dist/logo.png"></csrgo-header>
+
+    <main class="pt-24 md:pt-28 min-h-screen max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
+        
+        <div class="text-center py-20">
+            <h1 class="text-4xl md:text-6xl font-black text-gray-900 dark:text-white mb-6">
+                Welcome to the <br>
+                <span class="gradient-text">Web Components</span> Era
+            </h1>
+            <p class="text-xl text-gray-600 dark:text-gray-300 max-w-2xl mx-auto mb-10">
+                This whole page is pure static HTML! No Hugo, no node.js. Just a single <code>&lt;script&gt;</code> tag allows you to use elements like <code>&lt;csrgo-header&gt;</code> natively.
+            </p>
+            
+            <div class="bg-gray-100 dark:bg-gray-800 p-6 rounded-2xl text-left inline-block border border-gray-200 dark:border-gray-700 shadow-xl shadow-purple-500/10">
+                <p class="text-sm text-gray-500 dark:text-gray-400 mb-2 uppercase tracking-wider font-bold">Import via CDN:</p>
+                <code class="text-lg text-pink-500 font-mono">&lt;link rel="stylesheet" href="https://csrgo.github.io/csrgo-ui/dist/csrgo-ui.css"&gt;</code><br>
+                <code class="text-lg text-pink-500 font-mono">&lt;script src="https://csrgo.github.io/csrgo-ui/dist/csrgo-ui.js"&gt;&lt;/script&gt;</code>
+                
+                <p class="text-sm text-gray-500 dark:text-gray-400 mt-6 mb-2 uppercase tracking-wider font-bold">Use in your HTML:</p>
+                <code class="text-lg text-blue-500 font-mono">&lt;csrgo-header brand-name="CSRGO"&gt;&lt;/csrgo-header&gt;</code><br>
+                <code class="text-lg text-blue-500 font-mono">&lt;csrgo-footer&gt;&lt;/csrgo-footer&gt;</code>
+            </div>
+        </div>
+
+    </main>
+
+    <!-- Drop the footer into the page -->
+    <csrgo-footer logo-url="./dist/logo.png"></csrgo-footer>
+
+    <script>
+        // Init theme if it exists in local storage
+        (function () {
+            const theme = localStorage.getItem('theme') || 'light';
+            document.documentElement.setAttribute('data-theme', theme);
+            if (theme === 'dark') document.documentElement.classList.add('dark');
+        })();
+    </script>
+</body>
+</html>
